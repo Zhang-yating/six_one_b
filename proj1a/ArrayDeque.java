@@ -1,11 +1,11 @@
-public class ArrayDeque<Item> {
-    private Item[] elements;
+public class ArrayDeque<T> {
+    private T[] elements;
     private int size;
     private int front;
 
 
     public ArrayDeque() {
-        elements = (Item[]) new Object[8];
+        elements = (T[]) new Object[8];
         size = 0;
     }
 
@@ -16,18 +16,17 @@ public class ArrayDeque<Item> {
 
 
     private void upsize() {
-        Item[] resize = (Item[]) new Object[elements.length*2];
+        T[] resize = (T[]) new Object[elements.length * 2];
         System.arraycopy(elements, front, resize,0,(elements.length - front));
         if(front != 0){
-            System.arraycopy(elements,0,resize,(elements.length-front),front);
+            System.arraycopy(elements,0,resize,(elements.length - front),front);
         }
         elements = resize;
         front = 0;
     }
 
     private void downsize() {
-        Item[] resize = (Item[]) new Object[elements.length/2];
-        int copy_len;
+        T[] resize = (T[]) new Object[elements.length / 2];
         if(elements.length-front > size){
             System.arraycopy(elements, front, resize,0, size);
         }
@@ -40,7 +39,7 @@ public class ArrayDeque<Item> {
     }
 
     /* add an item to the front */
-    public void addFirst(Item item) {
+    public void addFirst(T item) {
         if (size == elements.length) {
             upsize();
         }
@@ -55,7 +54,7 @@ public class ArrayDeque<Item> {
         size += 1;
     }
 
-    public void addLast(Item item) {
+    public void addLast(T item) {
         if (size == elements.length) {
             upsize();
         }
@@ -63,7 +62,7 @@ public class ArrayDeque<Item> {
         size += 1;
     }
 
-    public Item get(int index) {
+    public T get(int index) {
         if (index >= size) {
             System.out.println("out of index");
             return null;
@@ -79,18 +78,18 @@ public class ArrayDeque<Item> {
         return index + front;
     }
 
-    public Item removeLast(){
+    public T removeLast(){
         size -= 1;
-        Item returned = elements[index_front(size)];
+        T returned = elements[index_front(size)];
         elements[index_front(size)] = null;
-        if (size*4 < elements.length & elements.length > 8){
+        if (size * 4 < elements.length & elements.length > 8){
             downsize();
         }
         return returned;
     }
 
-    public Item removeFirst(){
-        Item returned = elements[front];
+    public T removeFirst(){
+        T returned = elements[front];
         elements[front] = null;
         front = index_front(1);
         size -= 1;
@@ -101,15 +100,15 @@ public class ArrayDeque<Item> {
     }
 
     public void printDeque(){
-        for(int i=0 ; i < size-1; i++){
+        for(int i = 0 ; i < size - 1; i ++){
             System.out.print(get(i));
             System.out.print(" ");
         }
-        System.out.println(get(size-1));
+        System.out.println(get(size - 1));
     }
 
     public boolean isEmpty(){
-        return size==0;
+        return size == 0;
     }
 }
 
