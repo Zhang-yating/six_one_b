@@ -29,8 +29,7 @@ public class ArrayDeque<T> {
         T[] resize = (T[]) new Object[elements.length / 2];
         if (elements.length - front > size) {
             System.arraycopy(elements, front, resize, 0, size);
-        }
-        else {
+        } else {
             System.arraycopy(elements, front, resize, 0, (elements.length - front));
             System.arraycopy(elements, 0, resize, (elements.length - front),
                     (size - elements.length + front));
@@ -46,8 +45,7 @@ public class ArrayDeque<T> {
         }
         if (size == 0) {
             front = 0;
-        }
-        else {
+        } else {
             front = front - 1;
             if (front < 0) {
                 front = front + elements.length;
@@ -74,7 +72,7 @@ public class ArrayDeque<T> {
     }
 
     /*get the index counted from elements[front],front may be <0*/
-    private int indexFront (int index) {
+    private int indexFront(int index) {
         if (index + front >= elements.length) {
             return index + front - elements.length;
         }
@@ -82,16 +80,22 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         size -= 1;
         T returned = elements[indexFront(size)];
         elements[indexFront(size)] = null;
-        if (size * 4 < elements.length & elements.length > 8){
+        if (size * 4 < elements.length & elements.length > 8) {
             downsize();
         }
         return returned;
     }
 
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         T returned = elements[front];
         elements[front] = null;
         front = indexFront(1);
@@ -103,7 +107,7 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        for (int i = 0 ; i < size - 1; i++) {
+        for (int i = 0; i < size - 1; i++) {
             System.out.print(get(i));
             System.out.print(" ");
         }
