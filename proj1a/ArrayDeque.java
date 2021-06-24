@@ -17,9 +17,9 @@ public class ArrayDeque<T> {
 
     private void upsize() {
         T[] resize = (T[]) new Object[elements.length * 2];
-        System.arraycopy(elements, front, resize,0,(elements.length - front));
-        if(front != 0){
-            System.arraycopy(elements,0,resize,(elements.length - front),front);
+        System.arraycopy(elements, front, resize, 0, (elements.length - front));
+        if (front != 0) {
+            System.arraycopy(elements, 0, resize, (elements.length - front), front);
         }
         elements = resize;
         front = 0;
@@ -27,12 +27,13 @@ public class ArrayDeque<T> {
 
     private void downsize() {
         T[] resize = (T[]) new Object[elements.length / 2];
-        if(elements.length-front > size){
-            System.arraycopy(elements, front, resize,0, size);
+        if (elements.length - front > size) {
+            System.arraycopy(elements, front, resize, 0, size);
         }
         else {
             System.arraycopy(elements, front, resize, 0, (elements.length - front));
-            System.arraycopy(elements,0, resize, (elements.length - front), (size - elements.length + front));
+            System.arraycopy(elements, 0, resize, (elements.length - front),
+                    (size - elements.length + front));
         }
         elements = resize;
         front = 0;
@@ -43,7 +44,9 @@ public class ArrayDeque<T> {
         if (size == elements.length) {
             upsize();
         }
-        if (size == 0) front = 0;
+        if (size == 0) {
+            front = 0;
+        }
         else {
             front = front - 1;
             if (front < 0) {
@@ -58,7 +61,7 @@ public class ArrayDeque<T> {
         if (size == elements.length) {
             upsize();
         }
-        elements[index_front(size)] = item;
+        elements[indexFront(size)] = item;
         size += 1;
     }
 
@@ -67,47 +70,47 @@ public class ArrayDeque<T> {
             System.out.println("out of index");
             return null;
         }
-        return elements[index_front(index)];
+        return elements[indexFront(index)];
     }
 
     /*get the index counted from elements[front],front may be <0*/
-    private int index_front (int index){
-        if(index + front >= elements.length){
+    private int indexFront (int index) {
+        if (index + front >= elements.length) {
             return index + front - elements.length;
         }
         return index + front;
     }
 
-    public T removeLast(){
+    public T removeLast() {
         size -= 1;
-        T returned = elements[index_front(size)];
-        elements[index_front(size)] = null;
+        T returned = elements[indexFront(size)];
+        elements[indexFront(size)] = null;
         if (size * 4 < elements.length & elements.length > 8){
             downsize();
         }
         return returned;
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         T returned = elements[front];
         elements[front] = null;
-        front = index_front(1);
+        front = indexFront(1);
         size -= 1;
-        if (size*4 < elements.length & elements.length > 8){
+        if (size * 4 < elements.length & elements.length > 8) {
             downsize();
         }
         return returned;
     }
 
-    public void printDeque(){
-        for(int i = 0 ; i < size - 1; i ++){
+    public void printDeque() {
+        for (int i = 0 ; i < size - 1; i++) {
             System.out.print(get(i));
             System.out.print(" ");
         }
         System.out.println(get(size - 1));
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 }
