@@ -10,8 +10,12 @@ public class TestOffByOne {
         char c1 = 'a';
         char c2 = 'b';
         char c3 = 'c';
+        char c4 = ' ';
+        char c5 = '%';
         assertTrue(offByOne.equalChars(c1, c2));
         assertFalse(offByOne.equalChars(c1, c3));
+        assertFalse(offByOne.equalChars(c1, c4));
+        assertFalse(offByOne.equalChars(c1, c5));
     }
 
 
